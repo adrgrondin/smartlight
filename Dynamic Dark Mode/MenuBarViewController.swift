@@ -85,6 +85,9 @@ final class MenuBarViewController: NSViewController {
         NSApplication.shared.terminate(sender)
     }
     
+    @IBAction func ToogleDynamicDarkMode(_ sender: NSButton) {
+ 
+    }
     // MARK: - Functions
     
     func showAuthorizationAlert() -> NSApplication.ModalResponse {
