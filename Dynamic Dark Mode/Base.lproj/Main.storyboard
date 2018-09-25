@@ -706,26 +706,59 @@
             <objects>
                 <viewController title="Preferences" storyboardIdentifier="PreferencesViewController" id="XfG-lQ-9wD" customClass="PreferencesViewController" customModule="Dynamic_Dark_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="385" height="268"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ne7-Us-Dyo">
+                                <rect key="frame" x="71" y="15" width="244" height="11"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Copyright © 2018 Adrien Grondin. All rights reserved." id="7nb-BR-DV2">
+                                    <font key="font" metaFont="miniSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H6q-X4-DWS">
+                                <rect key="frame" x="154" y="34" width="78" height="14"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Version 1.0 (1)" id="G0m-HI-gdu">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nua-IT-lbs">
+                                <rect key="frame" x="126" y="56" width="134" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Dynamic Dark Mode" id="cQI-9m-3gs">
+                                    <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Ne7-Us-Dyo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="80G-jg-BKu"/>
+                            <constraint firstItem="H6q-X4-DWS" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="8c6-DG-Ald"/>
+                            <constraint firstItem="H6q-X4-DWS" firstAttribute="top" secondItem="nua-IT-lbs" secondAttribute="bottom" constant="8" id="TZJ-XG-Zpq"/>
+                            <constraint firstItem="Ne7-Us-Dyo" firstAttribute="top" secondItem="H6q-X4-DWS" secondAttribute="bottom" constant="8" id="Txn-Yu-hFZ"/>
+                            <constraint firstAttribute="bottom" secondItem="Ne7-Us-Dyo" secondAttribute="bottom" constant="15" id="Uam-gQ-xx0"/>
+                            <constraint firstItem="nua-IT-lbs" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="eYc-Lw-BFu"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="705"/>
+            <point key="canvasLocation" x="76" y="707"/>
         </scene>
         <!--Menu Bar View Controller-->
         <scene sceneID="Rab-P8-nb2">
             <objects>
                 <viewController storyboardIdentifier="MenuBarViewController" id="3a7-zv-PRG" customClass="MenuBarViewController" customModule="Dynamic_Dark_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="fNh-gU-mRf">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="219" height="229"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MMD-A3-Wy0">
-                                <rect key="frame" x="150" y="242" width="151" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Toggle Dark Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WFD-ec-LF7">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MMD-A3-Wy0">
+                                <rect key="frame" x="36" y="181" width="148" height="32"/>
+                                <buttonCell key="cell" type="push" title="Toggle Light/Dark" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WFD-ec-LF7">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -733,20 +766,8 @@
                                     <action selector="toggleDarkMode:" target="3a7-zv-PRG" id="LI2-fQ-OkX"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SrW-t7-3VS">
-                                <rect key="frame" x="192" y="13" width="66" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FnV-Q8-ii5">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="quit:" target="3a7-zv-PRG" id="RBW-Y6-Fzs"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3F-Uv-Snq">
-                                <rect key="frame" x="163" y="46" width="125" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D3F-Uv-Snq">
+                                <rect key="frame" x="47" y="46" width="125" height="32"/>
                                 <buttonCell key="cell" type="push" title="Preferences..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xah-mt-IeL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -755,12 +776,39 @@
                                     <action selector="openPreferences:" target="3a7-zv-PRG" id="qIq-6a-8eD"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SrW-t7-3VS">
+                                <rect key="frame" x="77" y="13" width="66" height="32"/>
+                                <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FnV-Q8-ii5">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="quit:" target="3a7-zv-PRG" id="RBW-Y6-Fzs"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Aw-pv-IQK">
+                                <rect key="frame" x="37" y="152" width="145" height="18"/>
+                                <buttonCell key="cell" type="check" title="Dynamic Dark Mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Fpg-Qe-fvJ">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="MMD-A3-Wy0" firstAttribute="top" secondItem="fNh-gU-mRf" secondAttribute="top" constant="20" id="5ut-7i-JTB"/>
+                            <constraint firstItem="2Aw-pv-IQK" firstAttribute="centerX" secondItem="fNh-gU-mRf" secondAttribute="centerX" id="6dz-Wc-NdV"/>
+                            <constraint firstItem="2Aw-pv-IQK" firstAttribute="top" secondItem="MMD-A3-Wy0" secondAttribute="bottom" constant="20" id="D4O-V6-mlR"/>
+                            <constraint firstAttribute="bottom" secondItem="SrW-t7-3VS" secondAttribute="bottom" constant="20" id="Fel-rc-oS0"/>
+                            <constraint firstItem="SrW-t7-3VS" firstAttribute="top" secondItem="D3F-Uv-Snq" secondAttribute="bottom" constant="12" id="IBn-nc-frj"/>
+                            <constraint firstItem="MMD-A3-Wy0" firstAttribute="centerX" secondItem="fNh-gU-mRf" secondAttribute="centerX" id="SJv-NK-w70"/>
+                            <constraint firstItem="D3F-Uv-Snq" firstAttribute="centerX" secondItem="fNh-gU-mRf" secondAttribute="centerX" id="XhA-IB-0zP"/>
+                            <constraint firstItem="SrW-t7-3VS" firstAttribute="centerX" secondItem="fNh-gU-mRf" secondAttribute="centerX" id="Yp8-ba-R5t"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="ESq-Xi-1TH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="1078"/>
+            <point key="canvasLocation" x="76" y="1018"/>
         </scene>
     </scenes>
 </document>

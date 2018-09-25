@@ -9,6 +9,8 @@
 import Cocoa
 
 class MenuBarViewController: NSViewController {
+    
+    var preferencesWindowController: NSWindowController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +43,21 @@ class MenuBarViewController: NSViewController {
     }
     
     @IBAction func openPreferences(_ sender: NSButton) {
+        if let preferencesWindownController = preferencesWindowController {
+            preferencesWindownController.window?.makeKeyAndOrderFront(sender)
+            
+            return
+        }
+        
         // Load the main window with the preferences view controller.
         let storyBoard = NSStoryboard(name: "Main", bundle: nil) as NSStoryboard
         
         let windowController = storyBoard.instantiateController(withIdentifier: "MainWindowController") as? NSWindowController
         windowController?.window?.makeKeyAndOrderFront(nil)
+        
+        preferencesWindowController = windowController
     }
+    
     @IBAction func quit(_ sender: NSButton) {
         NSApplication.shared.terminate(sender)
     }
@@ -58,7 +69,7 @@ extension MenuBarViewController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
 
         guard let menuBarViewController = storyboard.instantiateController(withIdentifier: "MenuBarViewController") as? MenuBarViewController else {
-            fatalError("Why can't I find MenuViewController? - Check Main.storyboard")
+            fatalError("Can't instantiate MenuBarViewController.")
         }
         return menuBarViewController
     }

@@ -39,23 +39,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
-    @objc func ShowPreferences(_ sender: Any?) {
-        let storyBoard = NSStoryboard(name: "Main", bundle: nil) as NSStoryboard
-        
-        let windowController = storyBoard.instantiateController(withIdentifier: "MainWindowController") as? NSWindowController
-        windowController?.window?.makeKeyAndOrderFront(nil)
-    }
-    
-    func constructMenu() {
-        let menu = NSMenu()
-
-        menu.addItem(NSMenuItem(title: "Preferences...", action: #selector(AppDelegate.ShowPreferences(_:)), keyEquivalent: "P"))
-        menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit Dynamic Dark Mode", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
-
-        statusItem.menu = menu
-    }
     
     @objc func togglePopover(_ sender: Any?) {
         if popover.isShown {
