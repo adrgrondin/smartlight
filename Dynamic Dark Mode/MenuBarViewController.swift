@@ -47,6 +47,9 @@ class MenuBarViewController: NSViewController {
         let windowController = storyBoard.instantiateController(withIdentifier: "MainWindowController") as? NSWindowController
         windowController?.window?.makeKeyAndOrderFront(nil)
     }
+    @IBAction func quit(_ sender: NSButton) {
+        NSApplication.shared.terminate(sender)
+    }
 }
 
 extension MenuBarViewController {
