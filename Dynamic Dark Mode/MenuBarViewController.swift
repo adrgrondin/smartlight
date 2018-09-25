@@ -8,16 +8,39 @@
 
 import Cocoa
 
-class MenuBarViewController: NSViewController {
+final class MenuBarViewController: NSViewController {
     
-    var preferencesWindowController: NSWindowController?
+    private var preferencesWindowController: NSWindowController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
     }
     
+    // MARK: - @IBActions
+    
     @IBAction func toggleDarkMode(_ sender: NSButton) {
+        //  Get the Authorization status for "System Events".
+        var status: OSStatus?
+        var targetAppEventDescriptor: NSAppleEventDescriptor?
+        
+        targetAppEventDescriptor = NSAppleEventDescriptor(bundleIdentifier: "com.apple.systemevents")
+        
+        status = AEDeterminePermissionToAutomateTarget(targetAppEventDescriptor?.aeDesc, typeWildCard, typeWildCard, true)
+        
+        // Show an alert if not authorized.
+        if let status = status, status == -1743 {
+            let resp = showAuthorizationAlert()
+            if resp == .alertFirstButtonReturn {
+                if let aString = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation") {
+                    NSWorkspace.shared.open(aString)
+                }
+            }
+            
+            return
+        }
+
+        // Script to toggle the appearance.
         let myAppleScript = """
         tell application \"System Events\"
 
@@ -30,6 +53,7 @@ class MenuBarViewController: NSViewController {
         end tell
         """
         
+        // Run the script and also ask for authorization.
         var error: NSDictionary?
         if let scriptObject = NSAppleScript(source: myAppleScript) {
             if let outputString = scriptObject.executeAndReturnError(&error).stringValue {
@@ -38,12 +62,10 @@ class MenuBarViewController: NSViewController {
                 print("error: ", error!)
             }
         }
-        
-        print("Toggled")
     }
     
     @IBAction func openPreferences(_ sender: NSButton) {
-        if let preferencesWindownController = preferencesWindowController {
+        if let preferencesWindownController = self.preferencesWindowController {
             preferencesWindownController.window?.makeKeyAndOrderFront(sender)
             
             return
@@ -52,14 +74,28 @@ class MenuBarViewController: NSViewController {
         // Load the main window with the preferences view controller.
         let storyBoard = NSStoryboard(name: "Main", bundle: nil) as NSStoryboard
         
-        let windowController = storyBoard.instantiateController(withIdentifier: "MainWindowController") as? NSWindowController
-        windowController?.window?.makeKeyAndOrderFront(nil)
+        let preferencesWindowController = storyBoard.instantiateController(withIdentifier: "MainWindowController") as? NSWindowController
+        preferencesWindowController?.window?.makeKeyAndOrderFront(nil)
         
-        preferencesWindowController = windowController
+        // Store the preferences window controller to prevent multiple instances.
+        self.preferencesWindowController = preferencesWindowController
     }
     
     @IBAction func quit(_ sender: NSButton) {
         NSApplication.shared.terminate(sender)
+    }
+    
+    // MARK: - Functions
+    
+    func showAuthorizationAlert() -> NSApplication.ModalResponse {
+        let alert = NSAlert()
+        alert.messageText = "\"Dynamic Dark Mode\" does not have access to \"System Events\""
+        alert.informativeText = "Access to \"System Events\" is needed to allow the app to change the appearance. Please allow access in System Preferences and restart the app."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Open System Preferences...")
+        alert.addButton(withTitle: "Cancel")
+        
+        return alert.runModal()
     }
 }
 

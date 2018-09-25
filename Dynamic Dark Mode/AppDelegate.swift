@@ -11,13 +11,13 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
-    let popover = NSPopover()
-    var eventMonitor: EventMonitor?
+    private let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
+    private let popover = NSPopover()
+    private var eventMonitor: EventMonitor?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        // Put the app's window on top.
+        // Put the app's windows on top.
         NSApp.activate(ignoringOtherApps: true)
         
         if let button = statusItem.button {
@@ -26,8 +26,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         popover.contentViewController = MenuBarViewController.instantiateViewController()
-        
-        //constructMenu()
         
         eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
             if let strongSelf = self, strongSelf.popover.isShown {
@@ -39,6 +37,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+    
+    // MARK: - Functions
     
     @objc func togglePopover(_ sender: Any?) {
         if popover.isShown {

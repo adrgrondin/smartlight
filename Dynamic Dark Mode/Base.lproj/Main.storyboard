@@ -753,12 +753,12 @@
             <objects>
                 <viewController storyboardIdentifier="MenuBarViewController" id="3a7-zv-PRG" customClass="MenuBarViewController" customModule="Dynamic_Dark_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="fNh-gU-mRf">
-                        <rect key="frame" x="0.0" y="0.0" width="219" height="229"/>
+                        <rect key="frame" x="0.0" y="0.0" width="186" height="229"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MMD-A3-Wy0">
-                                <rect key="frame" x="36" y="181" width="148" height="32"/>
-                                <buttonCell key="cell" type="push" title="Toggle Light/Dark" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WFD-ec-LF7">
+                                <rect key="frame" x="33" y="181" width="120" height="32"/>
+                                <buttonCell key="cell" type="push" title="Quick Toggle" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WFD-ec-LF7">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -767,7 +767,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D3F-Uv-Snq">
-                                <rect key="frame" x="47" y="46" width="125" height="32"/>
+                                <rect key="frame" x="31" y="46" width="125" height="32"/>
                                 <buttonCell key="cell" type="push" title="Preferences..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xah-mt-IeL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -777,7 +777,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SrW-t7-3VS">
-                                <rect key="frame" x="77" y="13" width="66" height="32"/>
+                                <rect key="frame" x="60" y="13" width="66" height="32"/>
                                 <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FnV-Q8-ii5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -787,8 +787,8 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Aw-pv-IQK">
-                                <rect key="frame" x="37" y="152" width="145" height="18"/>
-                                <buttonCell key="cell" type="check" title="Dynamic Dark Mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Fpg-Qe-fvJ">
+                                <rect key="frame" x="21" y="152" width="145" height="18"/>
+                                <buttonCell key="cell" type="check" title="Dynamic Dark Mode" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Fpg-Qe-fvJ">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -808,7 +808,7 @@
                 </viewController>
                 <customObject id="ESq-Xi-1TH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="76" y="1018"/>
+            <point key="canvasLocation" x="75" y="1018"/>
         </scene>
     </scenes>
 </document>
