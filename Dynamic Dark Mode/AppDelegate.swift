@@ -17,16 +17,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        
         // Put the app's windows on top.
         NSApp.activate(ignoringOtherApps: true)
         
+        // Activate the Dynamic Dark Mode.
         let userDefaults = UserDefaults.standard
-        let isDynamicDarkModeChecked = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
+        let isDynamicDarkModeActivated = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
         
-        if isDynamicDarkModeChecked {
-            DynamicDarkModeManager.shared.startDynamicMode()
+        if isDynamicDarkModeActivated {
+            DynamicDarkModeManager.shared.startDynamicDarkMode()
         }
         
+        // Add image and action to the menu bar button.
         if let button = statusItem.button {
             button.image = NSImage(named:NSImage.Name("StatusBarButtonImage"))
             button.action = #selector(togglePopover(_:))
@@ -34,6 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         popover.contentViewController = MenuBarViewController.instantiateViewController()
         
+        // Create an event monitor to hide the popover when a click occurs outside.
         eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
             if let strongSelf = self, strongSelf.popover.isShown {
                 strongSelf.closePopover(sender: event)
@@ -47,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Functions
     
-    @objc func togglePopover(_ sender: Any?) {
+    @objc private func togglePopover(_ sender: Any?) {
         if popover.isShown {
             closePopover(sender: sender)
         } else {
@@ -55,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func showPopover(sender: Any?) {
+    private func showPopover(sender: Any?) {
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
@@ -63,7 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         eventMonitor?.start()
     }
     
-    func closePopover(sender: Any?) {
+    private func closePopover(sender: Any?) {
         popover.performClose(sender)
         
         eventMonitor?.stop()

@@ -21,7 +21,9 @@ final class DynamicDarkModeManager: NSObject {
     
     private var coordinate: CLLocationCoordinate2D?
     
-    @objc func startDynamicMode() {
+    // MARK: - Functions
+    
+    @objc func startDynamicDarkMode() {
         print("Start getting location")
         
         switch CLLocationManager.authorizationStatus() {
@@ -51,6 +53,7 @@ final class DynamicDarkModeManager: NSObject {
         //            // User has not authorized access to location information.
         //            return
         //        }
+        
         // Do not start services that aren't available.
         if !CLLocationManager.locationServicesEnabled() {
             // Location services is not available.
@@ -67,19 +70,19 @@ final class DynamicDarkModeManager: NSObject {
         stopTimers()
     }
     
-    @objc private func toggleAppereanceMode(_ sender: Any?) {
-        print("Toggle appearance mode")
+    @objc private func toggleAppereanceMode() {
         guard let coordinate = self.coordinate else { return }
         let solar = Solar(for: Date(), coordinate: coordinate)
+        var appleScript: String = ""
         
         guard let isDaytime = solar?.isDaytime else { return }
         
         if isDaytime {
-            print("Is daytime")
+            print("Toogle Light Mode (daytime)")
 
             // Light Mode
-            let dayScript = """
-                tell application id "com.apple.systemevents"
+            appleScript = """
+            tell application id "com.apple.systemevents"
                 tell appearance preferences
                     if dark mode is true then
                         set dark mode to false
@@ -87,22 +90,12 @@ final class DynamicDarkModeManager: NSObject {
                 end tell
             end tell
             """
-            
-            // Run the script and also ask for authorization.
-            var error: NSDictionary?
-            if let scriptObject = NSAppleScript(source: dayScript) {
-                if let outputString = scriptObject.executeAndReturnError(&error).stringValue {
-                    print(outputString)
-                } else if (error != nil) {
-                    print("error: ", error!)
-                }
-            }
         } else {
-            print("Is night time")
+            print("Toggle Dark Mode (night time)")
 
             // Dark Mode
-            let nightScript = """
-                tell application id "com.apple.systemevents"
+            appleScript = """
+            tell application id "com.apple.systemevents"
                 tell appearance preferences
                     if dark mode is false then
                         set dark mode to true
@@ -110,46 +103,32 @@ final class DynamicDarkModeManager: NSObject {
                 end tell
             end tell
             """
-            
-            // Run the script and also ask for authorization.
-            var error: NSDictionary?
-            if let scriptObject = NSAppleScript(source: nightScript) {
-                if let outputString = scriptObject.executeAndReturnError(&error).stringValue {
-                    print(outputString)
-                } else if (error != nil) {
-                    print("error: ", error!)
-                }
+        }
+        
+        // Run the script and also ask for authorization.
+        var error: NSDictionary?
+        if let scriptObject = NSAppleScript(source: appleScript) {
+            if let outputString = scriptObject.executeAndReturnError(&error).stringValue {
+                print(outputString)
+            } else if (error != nil) {
+                print("error: ", error!)
             }
         }
     }
     
-    private func startTimer() {
-        print("Start timer")
+    private func startTimers() {
+        print("Start timers")
 
-        // Ensure that no timer is already running.
-        guard self.timer == nil else { return }
+        // Ensure that no timers are already running.
+        guard self.timer == nil, self.locationTimer == nil else { return }
         
-        // Create the timer.
-        //self.timer = Timer(timeInterval: 600, target: self, selector: #selector(toggleAppereanceMode(_:)), userInfo: nil, repeats: true)
-        self.timer = Timer(timeInterval: 5, target: self, selector: #selector(toggleAppereanceMode(_:)), userInfo: nil, repeats: true)
+        // Create the timers.
+        self.timer = Timer(timeInterval: 600, target: self, selector: #selector(toggleAppereanceMode), userInfo: nil, repeats: true)
+        self.locationTimer = Timer(timeInterval: 3600, target: self, selector: #selector(startDynamicDarkMode), userInfo: nil, repeats: true)
         
         // Add the timer to the RunLoop.
-        guard let timer = self.timer else { return }
+        guard let timer = self.timer, let locationTimer = self.locationTimer else { return }
         RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
-    }
-    
-    private func startLocationTimer() {
-        print("Start timer")
-        
-        // Ensure that no timer is already running.
-        guard self.locationTimer == nil else { return }
-        
-        // Create the timer.
-        //self.timer = Timer(timeInterval: 3600, target: self, selector: #selector(toggleAppereanceMode(_:)), userInfo: nil, repeats: true)
-        self.locationTimer = Timer(timeInterval: 3600, target: self, selector: #selector(startDynamicMode), userInfo: nil, repeats: true)
-        
-        // Add the timer to the RunLoop.
-        guard let locationTimer = self.locationTimer else { return }
         RunLoop.current.add(locationTimer, forMode: RunLoop.Mode.common)
     }
     
@@ -157,7 +136,6 @@ final class DynamicDarkModeManager: NSObject {
         guard let timer = self.timer , let locationTimer = self.locationTimer else { return }
         timer.invalidate()
         locationTimer.invalidate()
-        
     }
 }
 
@@ -169,9 +147,8 @@ extension DynamicDarkModeManager: CLLocationManagerDelegate {
         print(lastLocation.coordinate.latitude)
         self.coordinate = lastLocation.coordinate
         
-        startTimer()
-        startLocationTimer()
-        toggleAppereanceMode(self)
+        startTimers()
+        toggleAppereanceMode()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

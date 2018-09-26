@@ -22,9 +22,9 @@ final class MenuBarViewController: NSViewController {
         // Do view setup here.
         
         let userDefaults = UserDefaults.standard
-        let isDynamicDarkModChecked = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
+        let isDynamicDarkModActivated = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
         
-        if isDynamicDarkModChecked {
+        if isDynamicDarkModActivated {
             dynamicDarkModeButton.state = .on
             quickToggleButton.isEnabled = false
             
@@ -85,6 +85,8 @@ final class MenuBarViewController: NSViewController {
         if let preferencesWindownController = self.preferencesWindowController {
             preferencesWindownController.window?.makeKeyAndOrderFront(sender)
             
+            // Need to imrpove this. The window stays in memory when closed.
+            
             return
         }
         
@@ -111,7 +113,7 @@ final class MenuBarViewController: NSViewController {
             userDefaults.set(true, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
             
             print("Dynamic Dark Mode ON")
-            DynamicDarkModeManager.shared.startDynamicMode()
+            DynamicDarkModeManager.shared.startDynamicDarkMode()
 
         case .off:
             quickToggleButton.isEnabled = true
