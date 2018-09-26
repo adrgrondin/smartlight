@@ -207,8 +207,8 @@ extension Solar {
     /// - Complexity: O(1)
     public var isDaytime: Bool {
         guard
-            let sunrise = sunrise,
-            let sunset = sunset
+            let sunrise = civilSunrise,
+            let sunset = civilSunset
             else {
                 return false
         }

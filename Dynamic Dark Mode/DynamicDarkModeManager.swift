@@ -123,7 +123,7 @@ final class DynamicDarkModeManager: NSObject {
         guard self.timer == nil, self.locationTimer == nil else { return }
         
         // Create the timers.
-        self.timer = Timer(timeInterval: 600, target: self, selector: #selector(toggleAppereanceMode), userInfo: nil, repeats: true)
+        self.timer = Timer(timeInterval: 10, target: self, selector: #selector(toggleAppereanceMode), userInfo: nil, repeats: true)
         self.locationTimer = Timer(timeInterval: 3600, target: self, selector: #selector(startDynamicDarkMode), userInfo: nil, repeats: true)
         
         // Add the timer to the RunLoop.

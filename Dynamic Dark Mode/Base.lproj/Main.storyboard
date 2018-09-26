@@ -683,9 +683,9 @@
         <!--Window Controller-->
         <scene sceneID="5Bh-Sp-2Xe">
             <objects>
-                <windowController storyboardIdentifier="MainWindowController" id="MiE-Yi-owb" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="MiE-Yi-owb" sceneMemberID="viewController">
                     <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="kQR-LO-cqO">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="249" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
@@ -704,7 +704,7 @@
         <!--Preferences-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController title="Preferences" storyboardIdentifier="PreferencesViewController" id="XfG-lQ-9wD" customClass="PreferencesViewController" customModule="Dynamic_Dark_Mode" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Preferences" storyboardIdentifier="PreferencesViewController" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="PreferencesViewController" customModule="Dynamic_Dark_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="385" height="268"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -810,6 +810,7 @@
                     </view>
                     <connections>
                         <outlet property="dynamicDarkModeButton" destination="2Aw-pv-IQK" id="QVb-Pr-URj"/>
+                        <outlet property="preferencesButton" destination="D3F-Uv-Snq" id="Oct-ZC-Vcq"/>
                         <outlet property="quickToggleButton" destination="MMD-A3-Wy0" id="wmh-qH-V0w"/>
                     </connections>
                 </viewController>

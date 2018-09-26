@@ -12,8 +12,9 @@ final class MenuBarViewController: NSViewController {
     
     @IBOutlet weak var dynamicDarkModeButton: NSButton!
     @IBOutlet weak var quickToggleButton: NSButton!
+    @IBOutlet weak var preferencesButton: NSButton!
     
-    private var preferencesWindowController: NSWindowController?
+    private var isPreferencesWindowShowed = false
 
     // MARK: - Lifecycle
     
@@ -82,22 +83,20 @@ final class MenuBarViewController: NSViewController {
     }
     
     @IBAction func preferencesButtonPressed(_ sender: NSButton) {
-        if let preferencesWindownController = self.preferencesWindowController {
-            preferencesWindownController.window?.makeKeyAndOrderFront(sender)
+        if !isPreferencesWindowShowed {
+            // Load the main window with the preferences view controller.
+            let storyBoard = NSStoryboard(name: "Main", bundle: nil) as NSStoryboard
             
-            // Need to imrpove this. The window stays in memory when closed.
+            let preferencesWindowController = storyBoard.instantiateController(withIdentifier: "MainWindowController") as? NSWindowController
+            preferencesWindowController?.window?.level = .modalPanel
+            preferencesWindowController?.window?.makeKeyAndOrderFront(nil)
             
-            return
+            let preferencesViewController = preferencesWindowController?.window?.contentViewController as! PreferencesViewController
+            preferencesViewController.delegate = self
+            
+            isPreferencesWindowShowed = true
+            preferencesButton.isEnabled = false
         }
-        
-        // Load the main window with the preferences view controller.
-        let storyBoard = NSStoryboard(name: "Main", bundle: nil) as NSStoryboard
-        
-        let preferencesWindowController = storyBoard.instantiateController(withIdentifier: "MainWindowController") as? NSWindowController
-        preferencesWindowController?.window?.makeKeyAndOrderFront(nil)
-        
-        // Store the preferences window controller to prevent multiple instances.
-        self.preferencesWindowController = preferencesWindowController
     }
     
     @IBAction func quitButtonPressed(_ sender: NSButton) {
@@ -152,5 +151,14 @@ extension MenuBarViewController {
             fatalError("Can't instantiate MenuBarViewController from Main.storyboard.")
         }
         return menuBarViewController
+    }
+}
+
+// MARK: - PreferencesViewControllerDelegate
+
+extension MenuBarViewController: PreferencesViewControllerDelegate {
+    func didCloseView() {
+        isPreferencesWindowShowed = false
+        preferencesButton.isEnabled = true
     }
 }

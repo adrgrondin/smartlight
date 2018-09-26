@@ -8,12 +8,22 @@
 
 import Cocoa
 
+protocol PreferencesViewControllerDelegate: class {
+    func didCloseView()
+}
+
 class PreferencesViewController: NSViewController {
+    
+    weak var delegate: PreferencesViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidDisappear() {
+        delegate?.didCloseView()
     }
 
     override var representedObject: Any? {
