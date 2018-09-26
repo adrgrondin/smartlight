@@ -20,6 +20,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Put the app's windows on top.
         NSApp.activate(ignoringOtherApps: true)
         
+        let userDefaults = UserDefaults.standard
+        let isDynamicDarkModeChecked = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
+        
+        if isDynamicDarkModeChecked {
+            DynamicDarkModeManager.shared.startDynamicMode()
+        }
+        
         if let button = statusItem.button {
             button.image = NSImage(named:NSImage.Name("StatusBarButtonImage"))
             button.action = #selector(togglePopover(_:))

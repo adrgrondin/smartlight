@@ -10,16 +10,33 @@ import Cocoa
 
 final class MenuBarViewController: NSViewController {
     
+    @IBOutlet weak var dynamicDarkModeButton: NSButton!
+    @IBOutlet weak var quickToggleButton: NSButton!
+    
     private var preferencesWindowController: NSWindowController?
 
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        
+        let userDefaults = UserDefaults.standard
+        let isDynamicDarkModChecked = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
+        
+        if isDynamicDarkModChecked {
+            dynamicDarkModeButton.state = .on
+            quickToggleButton.isEnabled = false
+            
+        } else {
+            dynamicDarkModeButton.state = .off
+            quickToggleButton.isEnabled = true
+        }
     }
     
     // MARK: - @IBActions
     
-    @IBAction func toggleDarkMode(_ sender: NSButton) {
+    @IBAction func quickToggleButtonPressed(_ sender: NSButton) {
         //  Get the Authorization status for "System Events".
         var status: OSStatus?
         var targetAppEventDescriptor: NSAppleEventDescriptor?
@@ -64,7 +81,7 @@ final class MenuBarViewController: NSViewController {
         }
     }
     
-    @IBAction func openPreferences(_ sender: NSButton) {
+    @IBAction func preferencesButtonPressed(_ sender: NSButton) {
         if let preferencesWindownController = self.preferencesWindowController {
             preferencesWindownController.window?.makeKeyAndOrderFront(sender)
             
@@ -81,16 +98,36 @@ final class MenuBarViewController: NSViewController {
         self.preferencesWindowController = preferencesWindowController
     }
     
-    @IBAction func quit(_ sender: NSButton) {
+    @IBAction func quitButtonPressed(_ sender: NSButton) {
         NSApplication.shared.terminate(sender)
     }
     
-    @IBAction func ToogleDynamicDarkMode(_ sender: NSButton) {
- 
+    @IBAction func toggleDynamicDarkModePressed(_ sender: NSButton) {
+        let userDefaults = UserDefaults.standard
+        
+        switch sender.state {
+        case .on:
+            quickToggleButton.isEnabled = false
+            userDefaults.set(true, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
+            
+            print("Dynamic Dark Mode ON")
+            DynamicDarkModeManager.shared.startDynamicMode()
+
+        case .off:
+            quickToggleButton.isEnabled = true
+            userDefaults.set(false, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
+            
+            print("Dynamic Dark Mode OFF")
+            DynamicDarkModeManager.shared.stopDynamicMode()
+
+        default:
+            break
+        }
     }
+    
     // MARK: - Functions
     
-    func showAuthorizationAlert() -> NSApplication.ModalResponse {
+    private func showAuthorizationAlert() -> NSApplication.ModalResponse {
         let alert = NSAlert()
         alert.messageText = "\"Dynamic Dark Mode\" does not have access to \"System Events\""
         alert.informativeText = "Access to \"System Events\" is needed to allow the app to change the appearance. Please allow access in System Preferences and restart the app."
@@ -102,13 +139,15 @@ final class MenuBarViewController: NSViewController {
     }
 }
 
+// MARK: - Storyboard instantiation
+
 extension MenuBarViewController {
-    // MARK: Storyboard instantiation
+    
     static func instantiateViewController() -> MenuBarViewController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
 
         guard let menuBarViewController = storyboard.instantiateController(withIdentifier: "MenuBarViewController") as? MenuBarViewController else {
-            fatalError("Can't instantiate MenuBarViewController.")
+            fatalError("Can't instantiate MenuBarViewController from Main.storyboard.")
         }
         return menuBarViewController
     }

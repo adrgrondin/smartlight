@@ -763,7 +763,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="toggleDarkMode:" target="3a7-zv-PRG" id="LI2-fQ-OkX"/>
+                                    <action selector="quickToggleButtonPressed:" target="3a7-zv-PRG" id="cmx-c8-vyV"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D3F-Uv-Snq">
@@ -773,7 +773,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="openPreferences:" target="3a7-zv-PRG" id="qIq-6a-8eD"/>
+                                    <action selector="preferencesButtonPressed:" target="3a7-zv-PRG" id="yUQ-j6-ZGI"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SrW-t7-3VS">
@@ -783,7 +783,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="quit:" target="3a7-zv-PRG" id="RBW-Y6-Fzs"/>
+                                    <action selector="quitButtonPressed:" target="3a7-zv-PRG" id="tPb-Ly-z6c"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Aw-pv-IQK">
@@ -793,7 +793,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="ToogleDynamicDarkMode:" target="3a7-zv-PRG" id="Vwi-aS-qiU"/>
+                                    <action selector="toggleDynamicDarkModePressed:" target="3a7-zv-PRG" id="Rm3-9c-NYu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -808,10 +808,14 @@
                             <constraint firstItem="SrW-t7-3VS" firstAttribute="centerX" secondItem="fNh-gU-mRf" secondAttribute="centerX" id="Yp8-ba-R5t"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dynamicDarkModeButton" destination="2Aw-pv-IQK" id="QVb-Pr-URj"/>
+                        <outlet property="quickToggleButton" destination="MMD-A3-Wy0" id="wmh-qH-V0w"/>
+                    </connections>
                 </viewController>
                 <customObject id="ESq-Xi-1TH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="1018"/>
+            <point key="canvasLocation" x="75" y="1017.5"/>
         </scene>
     </scenes>
 </document>
