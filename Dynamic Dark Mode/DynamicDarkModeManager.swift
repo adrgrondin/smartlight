@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 import CoreLocation
 
 final class DynamicDarkModeManager: NSObject {
@@ -23,40 +24,50 @@ final class DynamicDarkModeManager: NSObject {
     
     // MARK: - Functions
     
-    @objc func startDynamicDarkMode() {
-        print("Start getting location")
+    func startDynamicDarkMode() {
+        updateLocation()
+    }
+    
+    func stopDynamicDarkMode() {
+        stopTimers()
+    }
+    
+    @objc private func updateLocation() {
+        print("Update location")
         
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
-            // Request when-in-use authorization initially
-            print("Not Determined")
+            // Request always authorization initially.
             break
             
         case .restricted, .denied:
             // Disable location features
             print("Restrited/Denied")
-            break
             
-        case .authorizedWhenInUse:
-            // Enable basic location features
-            print("Authorized When In Use")
-            break
+            let alert = showLocationServicesAuthorizationAlert()
+            if alert == .alertFirstButtonReturn {
+                if let stringURL = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices") {
+                    NSWorkspace.shared.open(stringURL)
+                }
+            }
             
+            return
+        
         case .authorizedAlways:
             // Enable any of your app's location features
             print("Authorized Always")
             break
         }
-    
-        //        let authorizationStatus = CLLocationManager.authorizationStatus()
-        //        if authorizationStatus != .authorizedAlways {
-        //            // User has not authorized access to location information.
-        //            return
-        //        }
         
         // Do not start services that aren't available.
         if !CLLocationManager.locationServicesEnabled() {
             // Location services is not available.
+            let alert = showLocationServicesAuthorizationAlert()
+            if alert == .alertFirstButtonReturn {
+                if let stringURL = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices") {
+                    NSWorkspace.shared.open(stringURL)
+                }
+            }
             return
         }
         
@@ -66,11 +77,7 @@ final class DynamicDarkModeManager: NSObject {
         locationManager.requestLocation()
     }
     
-    func stopDynamicMode() {
-        stopTimers()
-    }
-    
-    @objc private func toggleAppereanceMode() {
+    @objc private func toggleAppearanceMode() {
         guard let coordinate = self.coordinate else { return }
         let solar = Solar(for: Date(), coordinate: coordinate)
         var appleScript: String = ""
@@ -123,8 +130,8 @@ final class DynamicDarkModeManager: NSObject {
         guard self.timer == nil, self.locationTimer == nil else { return }
         
         // Create the timers.
-        self.timer = Timer(timeInterval: 10, target: self, selector: #selector(toggleAppereanceMode), userInfo: nil, repeats: true)
-        self.locationTimer = Timer(timeInterval: 3600, target: self, selector: #selector(startDynamicDarkMode), userInfo: nil, repeats: true)
+        self.timer = Timer(timeInterval: 300, target: self, selector: #selector(toggleAppearanceMode), userInfo: nil, repeats: true)
+        self.locationTimer = Timer(timeInterval: 3600, target: self, selector: #selector(updateLocation), userInfo: nil, repeats: true)
         
         // Add the timer to the RunLoop.
         guard let timer = self.timer, let locationTimer = self.locationTimer else { return }
@@ -137,18 +144,44 @@ final class DynamicDarkModeManager: NSObject {
         timer.invalidate()
         locationTimer.invalidate()
     }
+    
+    // MARK: - Alerts
+    
+    private func showLocationServicesAuthorizationAlert() -> NSApplication.ModalResponse {
+        let alert = NSAlert()
+        alert.messageText = "\"Dynamic Dark Mode\" does not have access to \"Location Services\""
+        alert.informativeText = "Access to \"Location Services\" is needed for the Dynamic Dark Mode functionnality. Please allow access in System Preferences."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Open System Preferences...")
+        alert.addButton(withTitle: "Cancel")
+        
+        return alert.runModal()
+    }
+    
+    private func showLocationServicesDisabledAlert() -> NSApplication.ModalResponse {
+        let alert = NSAlert()
+        alert.messageText = "\"Location Services\" is disabled."
+        alert.informativeText = "\"Location Services\" must be enabled for the Dynamic Dark Mode functionnality. Please enable it in System Preferences."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Open System Preferences...")
+        alert.addButton(withTitle: "Cancel")
+        
+        return alert.runModal()
+    }
 }
+
+// MARK: - CLLocationManagerDelegate
 
 extension DynamicDarkModeManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
-        let lastLocation = locations.last!
+        let lastLocation = locations.first!
         
         // Do something with the location.
         print(lastLocation.coordinate.latitude)
         self.coordinate = lastLocation.coordinate
         
         startTimers()
-        toggleAppereanceMode()
+        toggleAppearanceMode()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -157,5 +190,26 @@ extension DynamicDarkModeManager: CLLocationManagerDelegate {
             return
         }
         // Notify the user of any errors.
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            updateLocation()
+            break
+        
+        case .restricted, .denied:
+            let alert = showLocationServicesAuthorizationAlert()
+            if alert == .alertFirstButtonReturn {
+                if let stringURL = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices") {
+                    NSWorkspace.shared.open(stringURL)
+                }
+            }
+            return
+        
+        case .authorizedAlways:
+            updateLocation()
+            break
+        }
     }
 }

@@ -48,13 +48,12 @@ final class MenuBarViewController: NSViewController {
         
         // Show an alert if not authorized.
         if let status = status, status == -1743 {
-            let resp = showAuthorizationAlert()
-            if resp == .alertFirstButtonReturn {
-                if let aString = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation") {
-                    NSWorkspace.shared.open(aString)
+            let alert = showSystemEventsAuthorizationAlert()
+            if alert == .alertFirstButtonReturn {
+                if let stringURL = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation") {
+                    NSWorkspace.shared.open(stringURL)
                 }
             }
-            
             return
         }
 
@@ -119,16 +118,16 @@ final class MenuBarViewController: NSViewController {
             userDefaults.set(false, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
             
             print("Dynamic Dark Mode OFF")
-            DynamicDarkModeManager.shared.stopDynamicMode()
+            DynamicDarkModeManager.shared.stopDynamicDarkMode()
 
         default:
             break
         }
     }
     
-    // MARK: - Functions
+    // MARK: - Alerts
     
-    private func showAuthorizationAlert() -> NSApplication.ModalResponse {
+    private func showSystemEventsAuthorizationAlert() -> NSApplication.ModalResponse {
         let alert = NSAlert()
         alert.messageText = "\"Dynamic Dark Mode\" does not have access to \"System Events\""
         alert.informativeText = "Access to \"System Events\" is needed to allow the app to change the appearance. Please allow access in System Preferences and restart the app."
