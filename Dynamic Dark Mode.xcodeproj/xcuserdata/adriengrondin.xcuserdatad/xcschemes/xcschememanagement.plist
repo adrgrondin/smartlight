@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Dynamic Dark Mode Launch Helper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Dynamic Dark Mode.xcscheme</key>
 		<dict>
 			<key>orderHint</key>

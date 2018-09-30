@@ -15,6 +15,7 @@ final class MenuBarViewController: NSViewController {
     @IBOutlet weak var preferencesButton: NSButton!
     
     private var isPreferencesWindowShowed = false
+    private let userDefaults = UserDefaults.standard
 
     // MARK: - Lifecycle
     
@@ -22,7 +23,6 @@ final class MenuBarViewController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         
-        let userDefaults = UserDefaults.standard
         let isDynamicDarkModActivated = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
         
         if isDynamicDarkModActivated {
@@ -103,8 +103,6 @@ final class MenuBarViewController: NSViewController {
     }
     
     @IBAction func toggleDynamicDarkModePressed(_ sender: NSButton) {
-        let userDefaults = UserDefaults.standard
-        
         switch sender.state {
         case .on:
             quickToggleButton.isEnabled = false
@@ -156,6 +154,7 @@ extension MenuBarViewController {
 // MARK: - PreferencesViewControllerDelegate
 
 extension MenuBarViewController: PreferencesViewControllerDelegate {
+    
     func didCloseView() {
         isPreferencesWindowShowed = false
         preferencesButton.isEnabled = true

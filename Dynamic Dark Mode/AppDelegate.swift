@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ServiceManagement
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -14,15 +15,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
     private let popover = NSPopover()
     private var eventMonitor: EventMonitor?
+    private let userDefaults = UserDefaults.standard
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        
+        // Manage the launch on startup.
+        let launcherAppId = "com.adriengrondin.Dynamic-Dark-Mode-Launch-Helper"
+        let runningApps = NSWorkspace.shared.runningApplications
+        let isRunning = !runningApps.filter { $0.bundleIdentifier == launcherAppId }.isEmpty
+        
+        // Turn on launch on startup the first time the app is launched.
+        if !isAppAlreadyLaunchedOnce() {
+            SMLoginItemSetEnabled(launcherAppId as CFString, true)
+            userDefaults.setValue(true, forKey: "com.adriengrondin.Dynamic-Dark-Mode.launchOnStartup")
+        }
+        
+        if isRunning {
+            DistributedNotificationCenter.default().post(name: .killLauncher, object: Bundle.main.bundleIdentifier!)
+        }
         
         // Put the app's windows on top.
         NSApp.activate(ignoringOtherApps: true)
         
         // Activate the Dynamic Dark Mode.
-        let userDefaults = UserDefaults.standard
         let isDynamicDarkModeActivated = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
         
         if isDynamicDarkModeActivated {
@@ -72,5 +88,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         eventMonitor?.stop()
     }
+    
+    private func isAppAlreadyLaunchedOnce() -> Bool {
+        if let _ = userDefaults.string(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isAppAlreadyLaunchedOnce"){
+            return true
+        } else {
+            userDefaults.set(true, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isAppAlreadyLaunchedOnce")
+            return false
+        }
+    }
 }
 
+extension Notification.Name {
+    static let killLauncher = Notification.Name("killLauncher")
+}
