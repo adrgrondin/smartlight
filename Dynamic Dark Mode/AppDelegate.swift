@@ -25,10 +25,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let runningApps = NSWorkspace.shared.runningApplications
         let isRunning = !runningApps.filter { $0.bundleIdentifier == launcherAppId }.isEmpty
         
-        // Turn on launch on startup the first time the app is launched.
+        // Turn on launch on startup the first time the app is launched and disable Dynamic Dark Mode.
         if !isAppAlreadyLaunchedOnce() {
             SMLoginItemSetEnabled(launcherAppId as CFString, true)
             userDefaults.setValue(true, forKey: "com.adriengrondin.Dynamic-Dark-Mode.launchOnStartup")
+            userDefaults.set(false, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
         }
         
         if isRunning {
