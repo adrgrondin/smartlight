@@ -16,7 +16,7 @@
 		0475C682215A530900BE3894 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0475C681215A530900BE3894 /* PreferencesViewController.swift */; };
 		0475C684215A530C00BE3894 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0475C683215A530C00BE3894 /* Assets.xcassets */; };
 		0475C687215A530C00BE3894 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0475C685215A530C00BE3894 /* Main.storyboard */; };
-		04AB46382160CD0400C26B8B /* Dynamic Dark Mode Launch Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 040F333B2160BCEC00453D65 /* Dynamic Dark Mode Launch Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		04AB46382160CD0400C26B8B /* SmartLight Launch Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 040F333B2160BCEC00453D65 /* SmartLight Launch Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		04AB46392160CD1800C26B8B /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040F334E2160BF2800453D65 /* ServiceManagement.framework */; };
 		04B0AB84215ACD930057C9BF /* Solar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B0AB83215ACD930057C9BF /* Solar.swift */; };
 		04D2F7DD215A898F00291E01 /* MenuBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2F7DC215A898F00291E01 /* MenuBarViewController.swift */; };
@@ -30,14 +30,14 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				04AB46382160CD0400C26B8B /* Dynamic Dark Mode Launch Helper.app in CopyFiles */,
+				04AB46382160CD0400C26B8B /* SmartLight Launch Helper.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		040F333B2160BCEC00453D65 /* Dynamic Dark Mode Launch Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dynamic Dark Mode Launch Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		040F333B2160BCEC00453D65 /* SmartLight Launch Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SmartLight Launch Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		040F333D2160BCEC00453D65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		040F33412160BCEE00453D65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		040F33442160BCEE00453D65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -45,7 +45,7 @@
 		040F33472160BCEE00453D65 /* Dynamic_Dark_Mode_Launch_Helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dynamic_Dark_Mode_Launch_Helper.entitlements; sourceTree = "<group>"; };
 		040F334E2160BF2800453D65 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		045CDDEB215AE07900F29321 /* DynamicDarkModeScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDarkModeScheduler.swift; sourceTree = "<group>"; };
-		0475C67C215A530900BE3894 /* Dynamic Dark Mode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dynamic Dark Mode.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0475C67C215A530900BE3894 /* SmartLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0475C67F215A530900BE3894 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0475C681215A530900BE3894 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		0475C683215A530C00BE3894 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -119,8 +119,8 @@
 		0475C67D215A530900BE3894 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0475C67C215A530900BE3894 /* Dynamic Dark Mode.app */,
-				040F333B2160BCEC00453D65 /* Dynamic Dark Mode Launch Helper.app */,
+				0475C67C215A530900BE3894 /* SmartLight.app */,
+				040F333B2160BCEC00453D65 /* SmartLight Launch Helper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,9 +152,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		040F333A2160BCEC00453D65 /* Dynamic Dark Mode Launch Helper */ = {
+		040F333A2160BCEC00453D65 /* SmartLight Launch Helper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 040F334A2160BCEE00453D65 /* Build configuration list for PBXNativeTarget "Dynamic Dark Mode Launch Helper" */;
+			buildConfigurationList = 040F334A2160BCEE00453D65 /* Build configuration list for PBXNativeTarget "SmartLight Launch Helper" */;
 			buildPhases = (
 				040F33372160BCEC00453D65 /* Sources */,
 				040F33382160BCEC00453D65 /* Frameworks */,
@@ -164,14 +164,14 @@
 			);
 			dependencies = (
 			);
-			name = "Dynamic Dark Mode Launch Helper";
+			name = "SmartLight Launch Helper";
 			productName = "Dynamic Dark Mode Launch Helper";
-			productReference = 040F333B2160BCEC00453D65 /* Dynamic Dark Mode Launch Helper.app */;
+			productReference = 040F333B2160BCEC00453D65 /* SmartLight Launch Helper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0475C67B215A530900BE3894 /* Dynamic Dark Mode */ = {
+		0475C67B215A530900BE3894 /* SmartLight */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0475C68C215A530C00BE3894 /* Build configuration list for PBXNativeTarget "Dynamic Dark Mode" */;
+			buildConfigurationList = 0475C68C215A530C00BE3894 /* Build configuration list for PBXNativeTarget "SmartLight" */;
 			buildPhases = (
 				0475C678215A530900BE3894 /* Sources */,
 				0475C679215A530900BE3894 /* Frameworks */,
@@ -182,9 +182,9 @@
 			);
 			dependencies = (
 			);
-			name = "Dynamic Dark Mode";
+			name = SmartLight;
 			productName = "Dynamic Dark Mode";
-			productReference = 0475C67C215A530900BE3894 /* Dynamic Dark Mode.app */;
+			productReference = 0475C67C215A530900BE3894 /* SmartLight.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -226,8 +226,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0475C67B215A530900BE3894 /* Dynamic Dark Mode */,
-				040F333A2160BCEC00453D65 /* Dynamic Dark Mode Launch Helper */,
+				0475C67B215A530900BE3894 /* SmartLight */,
+				040F333A2160BCEC00453D65 /* SmartLight Launch Helper */,
 			);
 		};
 /* End PBXProject section */
@@ -493,7 +493,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		040F334A2160BCEE00453D65 /* Build configuration list for PBXNativeTarget "Dynamic Dark Mode Launch Helper" */ = {
+		040F334A2160BCEE00453D65 /* Build configuration list for PBXNativeTarget "SmartLight Launch Helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				040F33482160BCEE00453D65 /* Debug */,
@@ -511,7 +511,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0475C68C215A530C00BE3894 /* Build configuration list for PBXNativeTarget "Dynamic Dark Mode" */ = {
+		0475C68C215A530C00BE3894 /* Build configuration list for PBXNativeTarget "SmartLight" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0475C68D215A530C00BE3894 /* Debug */,
