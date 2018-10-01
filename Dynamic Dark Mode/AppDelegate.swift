@@ -43,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let isDynamicDarkModeActivated = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
         
         if isDynamicDarkModeActivated {
-            DynamicDarkModeManager.shared.startDynamicDarkMode()
+            DynamicDarkModeScheduler.shared.startDynamicDarkMode()
         }
         
         // Add image and action to the menu bar button.

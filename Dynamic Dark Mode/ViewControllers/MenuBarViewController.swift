@@ -109,14 +109,14 @@ final class MenuBarViewController: NSViewController {
             userDefaults.set(true, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
             
             print("Dynamic Dark Mode ON")
-            DynamicDarkModeManager.shared.startDynamicDarkMode()
+            DynamicDarkModeScheduler.shared.startDynamicDarkMode()
 
         case .off:
             quickToggleButton.isEnabled = true
             userDefaults.set(false, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
             
             print("Dynamic Dark Mode OFF")
-            DynamicDarkModeManager.shared.stopDynamicDarkMode()
+            DynamicDarkModeScheduler.shared.stopDynamicDarkMode()
 
         default:
             break

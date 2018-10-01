@@ -10,15 +10,16 @@ import Foundation
 import Cocoa
 import CoreLocation
 
-final class DynamicDarkModeManager: NSObject {
+final class DynamicDarkModeScheduler: NSObject {
     
-    static let shared = DynamicDarkModeManager()
+    static let shared = DynamicDarkModeScheduler()
     
     private override init() { }
     
     private let locationManager = CLLocationManager()
     private var timer: Timer?
     private var locationTimer: Timer?
+    private var activity: NSBackgroundActivityScheduler?
     
     private var coordinate: CLLocationCoordinate2D?
     
@@ -125,11 +126,11 @@ final class DynamicDarkModeManager: NSObject {
     
     private func startTimers() {
         print("Start timers")
-
+        
         // Ensure that no timers are already running.
         guard self.timer == nil, self.locationTimer == nil else { return }
         
-        // Create the timers.
+        // Create the timers. 300s
         self.timer = Timer(timeInterval: 300, target: self, selector: #selector(toggleAppearanceMode), userInfo: nil, repeats: true)
         self.locationTimer = Timer(timeInterval: 3600, target: self, selector: #selector(updateLocation), userInfo: nil, repeats: true)
         
@@ -137,6 +138,32 @@ final class DynamicDarkModeManager: NSObject {
         guard let timer = self.timer, let locationTimer = self.locationTimer else { return }
         RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
         RunLoop.current.add(locationTimer, forMode: RunLoop.Mode.common)
+        
+        
+        /*
+        guard self.timer == nil else { return }
+        self.timer = Timer(timeInterval: 5, target: self, selector: #selector(toggleAppearanceMode), userInfo: nil, repeats: true)
+        guard let timer = self.timer else { return }
+        RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
+        */
+        
+        /*
+        guard self.activity == nil else { return }
+        
+        activity = NSBackgroundActivityScheduler(identifier: "com.adriengrondin.Dynamic-Dark-Mode.DynamicDarkModeTimer")
+        activity?.repeats = true
+        activity?.interval = 5
+        activity?.qualityOfService = .userInitiated
+        //activity?.tolerance = 5
+        
+        activity?.schedule() { (completion: NSBackgroundActivityScheduler.CompletionHandler) in
+            // Perform the activity
+            
+            self.toggleAppearanceMode()
+            
+            completion(NSBackgroundActivityScheduler.Result.finished)
+        }
+        */
     }
     
     private func stopTimers() {
@@ -172,7 +199,7 @@ final class DynamicDarkModeManager: NSObject {
 
 // MARK: - CLLocationManagerDelegate
 
-extension DynamicDarkModeManager: CLLocationManagerDelegate {
+extension DynamicDarkModeScheduler: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations.first!
         
