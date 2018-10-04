@@ -733,8 +733,9 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aIt-1f-MD1">
-                                <rect key="frame" x="126" y="222" width="133" height="18"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aIt-1f-MD1">
+                                <rect key="frame" x="18" y="219" width="349" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Launch on startup" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hLw-AL-fJN">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -743,6 +744,36 @@
                                     <action selector="launchOnStartupPressed:" target="XfG-lQ-9wD" id="5Wy-JQ-Ls3"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nEa-5b-jnf">
+                                <rect key="frame" x="18" y="182" width="86" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Twilight type:" id="nhz-iF-PuM">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0p-vW-xwX">
+                                <rect key="frame" x="108" y="177" width="239" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Official (~0°)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="KPj-8w-uFO" id="Fgn-Tw-2Aj">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="Q2T-ui-Lr5">
+                                        <items>
+                                            <menuItem title="Official (~0°)" state="on" id="KPj-8w-uFO"/>
+                                            <menuItem title="Civil (6°below horizon)" id="Yeg-Qn-eAW"/>
+                                            <menuItem title="Nautical (12° below horizon)" id="cCE-oP-anH"/>
+                                            <menuItem title="Astronomical (18° below horizon)" id="Vyg-OJ-DdU">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="sunsetTypePopUpButtonChanged:" target="XfG-lQ-9wD" id="qtp-xQ-Xmc"/>
+                                </connections>
+                            </popUpButton>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Ne7-Us-Dyo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="80G-jg-BKu"/>
@@ -751,17 +782,16 @@
                             <constraint firstItem="Ne7-Us-Dyo" firstAttribute="top" secondItem="H6q-X4-DWS" secondAttribute="bottom" constant="8" id="Txn-Yu-hFZ"/>
                             <constraint firstAttribute="bottom" secondItem="Ne7-Us-Dyo" secondAttribute="bottom" constant="15" id="Uam-gQ-xx0"/>
                             <constraint firstItem="nua-IT-lbs" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="eYc-Lw-BFu"/>
-                            <constraint firstItem="aIt-1f-MD1" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="h6d-Xo-VQt"/>
-                            <constraint firstItem="aIt-1f-MD1" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="30" id="nsT-NC-lSc"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="launchOnStartupButton" destination="aIt-1f-MD1" id="YJr-EQ-EsV"/>
+                        <outlet property="twilightPopUpButton" destination="I0p-vW-xwX" id="XPN-05-Mwg"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="76" y="707"/>
+            <point key="canvasLocation" x="75.5" y="707"/>
         </scene>
         <!--Menu Bar View Controller-->
         <scene sceneID="Rab-P8-nb2">

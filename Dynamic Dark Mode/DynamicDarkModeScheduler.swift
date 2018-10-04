@@ -80,10 +80,16 @@ final class DynamicDarkModeScheduler: NSObject {
     
     @objc private func toggleAppearanceMode() {
         guard let coordinate = self.coordinate else { return }
-        let solar = Solar(for: Date(), coordinate: coordinate)
-        var appleScript: String = ""
+        
+        let twilightRawValue = UserDefaults.standard.integer(forKey: "com.adriengrondin.Dynamic-Dark-Mode.twilightType")
+        
+        guard let twilight = Solar.Twilight(rawValue: twilightRawValue) else { return }
+        
+        let solar = Solar(for: Date(), coordinate: coordinate, twilight: twilight)
         
         guard let isDaytime = solar?.isDaytime else { return }
+        
+        var appleScript: String = ""
         
         if isDaytime {
             print("Toogle Light Mode (daytime)")
@@ -115,6 +121,7 @@ final class DynamicDarkModeScheduler: NSObject {
         
         // Run the script and also ask for authorization.
         var error: NSDictionary?
+        
         if let scriptObject = NSAppleScript(source: appleScript) {
             if let outputString = scriptObject.executeAndReturnError(&error).stringValue {
                 print(outputString)

@@ -42,11 +42,26 @@ public struct Solar {
     public fileprivate(set) var nauticalSunset: Date?
     public fileprivate(set) var astronomicalSunrise: Date?
     public fileprivate(set) var astronomicalSunset: Date?
+    public fileprivate(set) var twilight: Twilight?
     
     // MARK: Init
     
     public init?(for date: Date = Date(), coordinate: CLLocationCoordinate2D) {
         self.date = date
+        
+        guard CLLocationCoordinate2DIsValid(coordinate) else {
+            return nil
+        }
+        
+        self.coordinate = coordinate
+        
+        // Fill this Solar object with relevant data
+        calculate()
+    }
+    
+    public init?(for date: Date = Date(), coordinate: CLLocationCoordinate2D, twilight: Twilight) {
+        self.date = date
+        self.twilight = twilight
         
         guard CLLocationCoordinate2DIsValid(coordinate) else {
             return nil
@@ -86,6 +101,13 @@ public struct Solar {
         case civil = 96
         case nautical = 102
         case astronimical = 108
+    }
+    
+    public enum Twilight: Int {
+        case official = 0
+        case civil = 1
+        case nautical = 2
+        case astronomical = 4
     }
     
     fileprivate func calculate(_ sunriseSunset: SunriseSunset, for date: Date, and zenith: Zenith) -> Date? {
@@ -206,21 +228,39 @@ extension Solar {
     /// Whether the location specified by the `latitude` and `longitude` is in daytime on `date`
     /// - Complexity: O(1)
     public var isDaytime: Bool {
-        guard
-            let sunrise = civilSunrise,
-            let sunset = civilSunset
-            else {
-                return false
+        guard let twilightType = twilight else { return false }
+        let sunrise: Date?
+        let sunset: Date?
+        
+        switch twilightType {
+        case .official:
+            sunrise = self.sunrise
+            sunset = self.sunset
+            
+        case .civil:
+            sunrise = self.civilSunrise
+            sunset = self.civilSunset
+        case .nautical:
+            sunrise = self.nauticalSunrise
+            sunset = self.nauticalSunset
+            
+        case .astronomical:
+            sunrise = self.astronomicalSunrise
+            sunset = self.astronomicalSunset
         }
         
-        let beginningOfDay = sunrise.timeIntervalSince1970
-        let endOfDay = sunset.timeIntervalSince1970
-        let currentTime = self.date.timeIntervalSince1970
+        if let sunrise = sunrise, let sunset = sunset {
+            let beginningOfDay = sunrise.timeIntervalSince1970
+            let endOfDay = sunset.timeIntervalSince1970
+            let currentTime = self.date.timeIntervalSince1970
+            
+            let isSunriseOrLater = currentTime >= beginningOfDay
+            let isBeforeSunset = currentTime < endOfDay
+            
+            return isSunriseOrLater && isBeforeSunset
+        }
         
-        let isSunriseOrLater = currentTime >= beginningOfDay
-        let isBeforeSunset = currentTime < endOfDay
-        
-        return isSunriseOrLater && isBeforeSunset
+        return false
     }
     
     /// Whether the location specified by the `latitude` and `longitude` is in nighttime on `date`

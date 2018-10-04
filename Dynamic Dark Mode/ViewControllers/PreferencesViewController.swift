@@ -16,6 +16,7 @@ protocol PreferencesViewControllerDelegate: class {
 class PreferencesViewController: NSViewController {
     
     @IBOutlet weak var launchOnStartupButton: NSButton!
+    @IBOutlet weak var twilightPopUpButton: NSPopUpButton!
     
     weak var delegate: PreferencesViewControllerDelegate?
     let userDefaults = UserDefaults.standard
@@ -25,6 +26,9 @@ class PreferencesViewController: NSViewController {
 
         // Do any additional setup after loading the view.
         let launchOnStartup = userDefaults.bool(forKey: "com.adriengrondin.Dynamic-Dark-Mode.launchOnStartup")
+        let twilightRawValue = userDefaults.integer(forKey: "com.adriengrondin.Dynamic-Dark-Mode.twilightType")
+        
+        twilightPopUpButton.selectItem(at: twilightRawValue)
         
         if launchOnStartup {
             launchOnStartupButton.state = .on
@@ -54,6 +58,11 @@ class PreferencesViewController: NSViewController {
         default:
             break
         }
+    }
+    
+    @IBAction func sunsetTypePopUpButtonChanged(_ sender: NSPopUpButton) {
+        let twilightTypeRawValue = sender.index(of: sender.selectedItem!)
+        userDefaults.set(twilightTypeRawValue, forKey: "com.adriengrondin.Dynamic-Dark-Mode.twilightType")
     }
 }
 

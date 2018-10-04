@@ -30,6 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             SMLoginItemSetEnabled(launcherAppId as CFString, true)
             userDefaults.set(true, forKey: "com.adriengrondin.Dynamic-Dark-Mode.launchOnStartup")
             userDefaults.set(false, forKey: "com.adriengrondin.Dynamic-Dark-Mode.isDynamicDarkModeActivated")
+            userDefaults.set(1, forKey: "com.adriengrondin.Dynamic-Dark-Mode.twilightType")
         }
         
         if isRunning {
