@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -733,9 +733,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aIt-1f-MD1">
-                                <rect key="frame" x="18" y="219" width="349" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aIt-1f-MD1">
+                                <rect key="frame" x="18" y="222" width="349" height="18"/>
                                 <buttonCell key="cell" type="check" title="Launch on startup" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hLw-AL-fJN">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -744,25 +743,15 @@
                                     <action selector="launchOnStartupPressed:" target="XfG-lQ-9wD" id="5Wy-JQ-Ls3"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nEa-5b-jnf">
-                                <rect key="frame" x="18" y="182" width="86" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Twilight type:" id="nhz-iF-PuM">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0p-vW-xwX">
-                                <rect key="frame" x="108" y="177" width="239" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Official (~0°)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="KPj-8w-uFO" id="Fgn-Tw-2Aj">
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="I0p-vW-xwX">
+                                <rect key="frame" x="108" y="182" width="260" height="25"/>
+                                <popUpButtonCell key="cell" type="push" title="Civil (6° below horizon)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="Yeg-Qn-eAW" id="Fgn-Tw-2Aj">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="Q2T-ui-Lr5">
                                         <items>
-                                            <menuItem title="Official (~0°)" state="on" id="KPj-8w-uFO"/>
-                                            <menuItem title="Civil (6°below horizon)" id="Yeg-Qn-eAW"/>
+                                            <menuItem title="Official (~0°)" id="KPj-8w-uFO"/>
+                                            <menuItem title="Civil (6° below horizon)" state="on" id="Yeg-Qn-eAW"/>
                                             <menuItem title="Nautical (12° below horizon)" id="cCE-oP-anH"/>
                                             <menuItem title="Astronomical (18° below horizon)" id="Vyg-OJ-DdU">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -774,14 +763,30 @@
                                     <action selector="sunsetTypePopUpButtonChanged:" target="XfG-lQ-9wD" id="qtp-xQ-Xmc"/>
                                 </connections>
                             </popUpButton>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nEa-5b-jnf">
+                                <rect key="frame" x="18" y="187" width="86" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Twilight type:" id="nhz-iF-PuM">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Ne7-Us-Dyo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="80G-jg-BKu"/>
                             <constraint firstItem="H6q-X4-DWS" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="8c6-DG-Ald"/>
+                            <constraint firstItem="nEa-5b-jnf" firstAttribute="top" secondItem="aIt-1f-MD1" secondAttribute="bottom" constant="20" id="9wy-xR-FZ6"/>
+                            <constraint firstItem="I0p-vW-xwX" firstAttribute="top" secondItem="aIt-1f-MD1" secondAttribute="bottom" constant="18" id="OCM-Du-3Zo"/>
                             <constraint firstItem="H6q-X4-DWS" firstAttribute="top" secondItem="nua-IT-lbs" secondAttribute="bottom" constant="8" id="TZJ-XG-Zpq"/>
                             <constraint firstItem="Ne7-Us-Dyo" firstAttribute="top" secondItem="H6q-X4-DWS" secondAttribute="bottom" constant="8" id="Txn-Yu-hFZ"/>
                             <constraint firstAttribute="bottom" secondItem="Ne7-Us-Dyo" secondAttribute="bottom" constant="15" id="Uam-gQ-xx0"/>
+                            <constraint firstAttribute="trailing" secondItem="I0p-vW-xwX" secondAttribute="trailing" constant="20" id="Vv8-z4-fqk"/>
+                            <constraint firstItem="I0p-vW-xwX" firstAttribute="leading" secondItem="nEa-5b-jnf" secondAttribute="trailing" constant="8" id="baI-aY-fcg"/>
                             <constraint firstItem="nua-IT-lbs" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="eYc-Lw-BFu"/>
+                            <constraint firstItem="aIt-1f-MD1" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="hCS-jY-1Qd"/>
+                            <constraint firstItem="aIt-1f-MD1" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="30" id="jgc-PO-5xl"/>
+                            <constraint firstItem="nEa-5b-jnf" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="rRf-OI-t8I"/>
+                            <constraint firstAttribute="trailing" secondItem="aIt-1f-MD1" secondAttribute="trailing" constant="20" id="vaZ-K0-ATi"/>
                         </constraints>
                     </view>
                     <connections>
