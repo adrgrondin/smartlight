@@ -1,4 +1,4 @@
-![alt text](https://github.com/adrgrondin/smartlight/blob/master/banner.png)
+![alt text](https://github.com/adrgrondin/smartlight/blob/master/Images/banner.png)
 
 Smartlight is a lightweight app for macOS Mojave that dynamically change the appearance mode of macOS depending on the time.
 
