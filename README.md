@@ -2,7 +2,7 @@
 
 Smartlight is a lightweight app for macOS Mojave that dynamically change the appearance mode of macOS depending on the time.
 
-You can easily control the appearance mode of macOS Mojave directly from the menu bar. Just click the Smartlight icon and select between a dynamic toogle or a manual one.
+You can easily control the appearance mode of macOS Mojave directly from the menu bar. Just click the Smartlight icon and select between a dynamic toggle or a manual one.
 
 # Features
 - Dynamic appearance mode based on the time
